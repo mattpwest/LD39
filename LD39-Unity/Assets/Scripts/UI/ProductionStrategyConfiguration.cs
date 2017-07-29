@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class ProductionStrategyConfiguration : MonoBehaviour
 {
     public Text ValueAvailable;
     public Text ValueWorkers;
     public Text ValuePopulation;
+    public Text ValuePower;
+    public Text ValueTime;
+    public Text ValueMetal;
 
     public Slider SliderPopulation;
     public Slider SliderWorkers;
@@ -23,6 +28,9 @@ public class ProductionStrategyConfiguration : MonoBehaviour
     void Awake()
     {
         this.shipResources = GameObject.FindObjectOfType<ShipResources>();
+        this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
+        this.SliderPopulation.maxValue = this.shipResources.MaxProducablePopulation;
+        this.UpdateCostValues();
     }
 
     // Update is called once per frame
@@ -30,6 +38,7 @@ public class ProductionStrategyConfiguration : MonoBehaviour
     {
         this.ValueAvailable.text = $"{this.shipResources.PopulationAvailable}";
         this.ValueWorkers.text = $"{this.shipResources.Workers}";
+        this.ValuePopulation.text = $"{this.SliderPopulation.value}";
     }
 
     public void HideDialog()
@@ -44,7 +53,9 @@ public class ProductionStrategyConfiguration : MonoBehaviour
 
     private void ValuePopulationChangeCheck(float value)
     {
-        
+        this.SliderPopulation.maxValue = this.shipResources.MaxProducablePopulation;
+
+        this.UpdateCostValues();
     }
 
     private void ValueWorkersChangeCheck(float value)
@@ -52,15 +63,20 @@ public class ProductionStrategyConfiguration : MonoBehaviour
         this.shipResources.SetActiveWorkers((int)value);
 
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
+
+        this.UpdateCostValues();
     }
 
     private void UpdateCostValues()
     {
-        if(this.shipResources.Metal == 0)
-        {
-            
-        }
+        var populationToProduce = (int)this.SliderPopulation.value;
 
-        var populationToProduce = this.shipResources.Metal / this.shipResources.PopulationPerMetal;
+        var timeCost = populationToProduce / (this.shipResources.PopulationPerTimePerWorker * (Mathf.Log(this.shipResources.Workers + 1)));
+        var powerCost = this.shipResources.CurrentPowerConsumption * timeCost;
+        var metalCost = populationToProduce * this.shipResources.MetalCostPerPopulation;
+
+        this.ValuePower.text = powerCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(powerCost)}";
+        this.ValueTime.text = timeCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(timeCost)}";
+        this.ValueMetal.text = metalCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(metalCost)}";
     }
 }
