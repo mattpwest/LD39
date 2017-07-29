@@ -76,6 +76,8 @@ public class ShipResources : MonoBehaviour
         this.CurrentPower += distanceMod * star.PowerPerTime * timeCharging;
 
         this.CurrentPower = Mathf.Min(this.CurrentPower, this.MaxPower);
+
+        this.TimePassed(timeCharging);
     }
 
     public float ChargeShipTime(StarPower star, float targetPower)

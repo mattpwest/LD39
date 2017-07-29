@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.UI;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class ChargeStrategyConfig : MonoBehaviour
+public class ChargeStrategyConfig : MonoBehaviour, IEvent
 {
     public Text ValuePowerPercentage;
     public Text ValuePower;
@@ -11,6 +12,7 @@ public class ChargeStrategyConfig : MonoBehaviour
 
     private StarPower starPower;
     private ShipResources shipResources;
+    private EventRunner eventRunner;
     private float chargePower;
     private float chargeTime;
 
@@ -23,6 +25,7 @@ public class ChargeStrategyConfig : MonoBehaviour
     {
         this.starPower = GameObject.FindObjectOfType<StarPower>();
         this.shipResources = GameObject.FindObjectOfType<ShipResources>();
+        this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
     }
 	
 	void Update ()
@@ -47,25 +50,21 @@ public class ChargeStrategyConfig : MonoBehaviour
         this.chargePower = this.SliderPower.value * this.shipResources.MaxPower;
         this.chargeTime = this.shipResources.ChargeShipTime(starPower, this.chargePower);
     }
-
+    
     private void SliderPowerChanged(float value)
     {
         this.chargePower = value * this.shipResources.MaxPower;
         this.chargeTime = this.shipResources.ChargeShipTime(starPower, this.chargePower);
     }
 
+    public void ExecuteStep()
+    {
+        shipResources.ChargeShip(this.starPower, 1);
+    }
+
     public void Execute()
     {
-        var timePassed = 0;
-
-        while (shipResources.CurrentPower < this.chargePower)
-        {
-            shipResources.ChargeShip(this.starPower, 1);
-
-            timePassed++;
-        }
-
-        shipResources.TimePassed(timePassed);
-        HideDialog();
+        Debug.Log((int) this.chargeTime);
+        this.eventRunner.AddEvents(this, (int) this.chargeTime);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiningStrategyConfig : MonoBehaviour
+public class MiningStrategyConfig : MonoBehaviour, IEvent
 {
     public Text ValueAvailable;
     public Text ValueResource;
@@ -16,10 +17,12 @@ public class MiningStrategyConfig : MonoBehaviour
 
     public GameObject Dialog;
 
+    private EventRunner eventRunner;
     private ShipResources shipResources;
     public MinePlanet Planet { get; set; }
 
     private float metalMined;
+    private int timeCost;
 
     // Use this for initialization
 	void Start ()
@@ -32,6 +35,7 @@ public class MiningStrategyConfig : MonoBehaviour
     {
 	    this.shipResources = GameObject.FindObjectOfType<ShipResources>();
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
+        this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
     }
 
     // Update is called once per frame
@@ -82,27 +86,20 @@ public class MiningStrategyConfig : MonoBehaviour
         }
 
         this.metalMined = this.Planet.Metal * this.SliderResource.value;
-        var timeCost =  this.metalMined / (this.Planet.MetalPerTimePerWorker * (Mathf.Log(this.shipResources.Workers + 2)));
+        this.timeCost =  (int) (this.metalMined / (this.Planet.MetalPerTimePerWorker * (Mathf.Log(this.shipResources.Workers + 2))));
         var powerCost = this.shipResources.CurrentPowerConsumption * timeCost;
 
         this.ValuePower.text = $"{Math.Round(powerCost)}";
-        this.ValueTime.text = $"{Math.Round(timeCost)}";
+        this.ValueTime.text = $"{timeCost}";
     }
 
     public void Execute()
     {
-        var targetMetal = shipResources.Metal + metalMined;
+        this.eventRunner.AddEvents(this, timeCost);
+    }
 
-        while (shipResources.Metal < targetMetal)
-        {
-            shipResources.MineMetal(this.Planet, 1);
-
-            if (shipResources.WasFound)
-            {
-                Debug.Log("We were found!");
-            }
-        }
-
-        HideDialog();
+    public void ExecuteStep()
+    {
+        shipResources.MineMetal(this.Planet, 1);
     }
 }
