@@ -5,6 +5,7 @@ public class ResourcesPanel : MonoBehaviour
 {
     public RectTransform ValuePower;
     public RectTransform ValueTime;
+    public GameObject ProductionDialog;
 
     public GameObject ChargeDialog;
 
@@ -27,12 +28,17 @@ public class ResourcesPanel : MonoBehaviour
 	
 	void Update ()
 	{
-	    valuePower.text = shipResources.CurrentPower + "";
-	    valueTime.text = shipResources.TimeLeft + "";
+	    valuePower.text = $"{Mathf.Round(shipResources.CurrentPower)}";
+	    valueTime.text = $"{Mathf.Round(shipResources.TimeLeft)}";
 	}
 
     public void ExecuteChargeEvent()
     {
         ChargeDialog.GetComponentInChildren<ChargeStrategyConfig>().ShowDialog();
+    }
+
+    public void ShowProduceDialog()
+    {
+        this.ProductionDialog.SetActive(true);
     }
 }

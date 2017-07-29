@@ -6,12 +6,15 @@ public class ShipResources : MonoBehaviour
     public float MaxPower = 200.0f;
     public float WorkerPowerConsumption = 0.5f;
     public float FighterPowerConsumption = 0.7f;
+    public float PopulationPerMetal = 10.0f;
+    public float PopulationPerWorker = 2.0f;
 
     public float CurrentPower { get; private set; }
     public float TimeLeft { get; private set; }
     public int Population { get; private set; }
     public int Workers { get; private set; }
     public int Fighters { get; private set; }
+    public int Metal { get; private set; }
 
     public int PopulationAvailable => this.Population - this.Workers - this.Fighters;
     public int WorkersAvailable => this.Population - this.Fighters;

@@ -28,7 +28,7 @@ public class ChargeStrategyConfig : MonoBehaviour
 	void Update ()
 	{
 	    this.ValueTime.text = float.IsInfinity(this.chargeTime) ? "∞" : $"{Mathf.Round(chargeTime)}";
-	    this.ValuePower.text = $"{Mathf.Round(this.chargePower)}";
+	    this.ValuePower.text = $"{Mathf.Round(this.chargePower - this.shipResources.CurrentPower)}";
 	    this.ValuePowerPercentage.text = $"{Mathf.Round(this.SliderPower.value * 100)}%";
     }
 
@@ -58,7 +58,7 @@ public class ChargeStrategyConfig : MonoBehaviour
     {
         var timePassed = 0;
 
-        while (shipResources.CurrentPower < shipResources.MaxPower)
+        while (shipResources.CurrentPower < this.chargePower)
         {
             shipResources.ChargeShip(this.starPower, 1);
 
@@ -66,5 +66,6 @@ public class ChargeStrategyConfig : MonoBehaviour
         }
 
         shipResources.TimePassed(timePassed);
+        HideDialog();
     }
 }
