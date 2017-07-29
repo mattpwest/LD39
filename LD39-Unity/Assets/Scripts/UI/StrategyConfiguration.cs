@@ -7,6 +7,8 @@ public class StrategyConfiguration : MonoBehaviour
     public Text ValueWorkers;
     public Text ValueFighers;
     public Text ValueMetal;
+    public Text ValuePower;
+    public Text ValueTime;
 
     public Slider SliderWorkers;
     public Slider SliderFighters;
