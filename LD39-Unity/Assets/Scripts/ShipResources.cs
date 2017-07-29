@@ -4,6 +4,7 @@ using UnityEngine;
 public class ShipResources : MonoBehaviour
 {
     public float MaxPower = 200.0f;
+    public float MaxMetal = 1000.0f;
     public float WorkerPowerConsumption = 0.5f;
     public float FighterPowerConsumption = 0.7f;
     public float MetalCostPerPopulation = 10.0f;
@@ -14,7 +15,7 @@ public class ShipResources : MonoBehaviour
     public int Population { get; private set; }
     public int Workers { get; private set; }
     public int Fighters { get; private set; }
-    public int Metal { get; private set; }
+    public float Metal { get; private set; }
 
     public int PopulationAvailable => this.Population - this.Workers - this.Fighters;
     public int WorkersAvailable => this.Population - this.Fighters;
@@ -29,10 +30,10 @@ public class ShipResources : MonoBehaviour
 
     public ShipResources()
     {
-        this.CurrentPower = 0.0f;
-        this.TimeLeft = 1000.0f;
+        this.CurrentPower = MaxPower * 0.1f;
+        this.Metal = MaxMetal * 0.1f;
+        this.TimeLeft = 48.0f;
         this.Population = 100;
-        this.Metal = 100;
     }
 
     public void ChargeShip(StarPower star, int timeCharging)
@@ -71,9 +72,23 @@ public class ShipResources : MonoBehaviour
         return deltaPower / (distanceMod * star.PowerPerTime);
     }
 
-    public void TimePassed(float time)
+    public float MineMetal(MinePlanet planet, int timeMining)
     {
-        this.TimeLeft -= time;
+        var metalMined = planet.MetalPerTimePerWorker* timeMining;
+        this.Metal = Mathf.Min(this.Metal + metalMined, this.MaxMetal);
+        this.TimePassed(timeMining);
+        this.PowerConsumed(this.Workers * this.WorkerPowerConsumption);
+        return metalMined;
+    }
+
+    private void PowerConsumed(float powerConsumed)
+    {
+        this.CurrentPower = Math.Max(0.0f, this.CurrentPower - powerConsumed);
+    }
+
+    public void TimePassed(float timePassed)
+    {
+        this.TimeLeft = Mathf.Max(0.0f, this.TimeLeft - timePassed);
     }
 
     public void SetActiveWorkers(int count)

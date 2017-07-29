@@ -6,14 +6,14 @@ public class MinePlanet : MonoBehaviour
     public float Metal = 100.0f;
     public float MetalPerTimePerWorker = 0.5f;
 
-    private StrategyConfiguration mineStrategyConfiguration;
+    private MiningStrategyConfig miningStrategyConfig;
 
 	void Start () {
 	    var parent = GameObject.Find("Main Canvas");
 	    var panel = Instantiate(dialog, parent.transform);
-	    this.mineStrategyConfiguration = panel.GetComponentInChildren<StrategyConfiguration>();
-	    this.mineStrategyConfiguration.Planet = this;
-        this.mineStrategyConfiguration.HideDialog();
+	    this.miningStrategyConfig = panel.GetComponentInChildren<MiningStrategyConfig>();
+	    this.miningStrategyConfig.Planet = this;
+        this.miningStrategyConfig.HideDialog();
 	}
 	
 	void Update () {
@@ -22,11 +22,11 @@ public class MinePlanet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        this.mineStrategyConfiguration.ShowDialog();
+        this.miningStrategyConfig.ShowDialog();
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        this.mineStrategyConfiguration.HideDialog();
+        this.miningStrategyConfig.HideDialog();
     }
 }
