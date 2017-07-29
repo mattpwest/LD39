@@ -11,6 +11,7 @@ public class ProductionStrategyConfiguration : MonoBehaviour
     public Text ValuePower;
     public Text ValueTime;
     public Text ValueMetal;
+    public Text ValuePopulationGain;
 
     public Slider SliderPopulation;
     public Slider SliderWorkers;
@@ -96,5 +97,6 @@ public class ProductionStrategyConfiguration : MonoBehaviour
         this.ValuePower.text = powerCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(powerCost)}";
         this.ValueTime.text = timeCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(timeCost)}";
         this.ValueMetal.text = metalCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(metalCost)}";
+        this.ValuePopulationGain.text = $"{populationToProduce}";
     }
 }

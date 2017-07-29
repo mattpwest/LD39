@@ -3027,7 +3027,7 @@ GameObject:
   - component: {fileID: 1191397564}
   - component: {fileID: 1191397563}
   m_Layer: 5
-  m_Name: ValueMetal
+  m_Name: ValuePopulation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5005,7 +5005,7 @@ GameObject:
   - component: {fileID: 1616936674}
   - component: {fileID: 1616936673}
   m_Layer: 5
-  m_Name: LabelMetal
+  m_Name: LabelPopulation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5063,7 +5063,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Metal:'
+  m_Text: 'Population:'
 --- !u!222 &1616936674
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6406,6 +6406,7 @@ MonoBehaviour:
   ValuePower: {fileID: 1340590252}
   ValueTime: {fileID: 747822435}
   ValueMetal: {fileID: 1596377690}
+  ValuePopulationGain: {fileID: 1191397563}
   SliderPopulation: {fileID: 1253933838}
   SliderWorkers: {fileID: 1785727336}
   Dialog: {fileID: 622025627}
