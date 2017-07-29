@@ -19,11 +19,15 @@ public class StrategyConfiguration : MonoBehaviour
     public MinePlanet Planet { get; set; }
 
     // Use this for initialization
-	void Start () {
-	    this.shipResources = GameObject.FindObjectOfType<ShipResources>();
-
+	void Start ()
+    {
         this.SliderWorkers.onValueChanged.AddListener(this.ValueWorkersChangeCheck);
         this.SliderFighters.onValueChanged.AddListener(this.ValueFightersChangeCheck);
+    }
+
+    void Awake()
+    {
+	    this.shipResources = GameObject.FindObjectOfType<ShipResources>();
     }
 
     // Update is called once per frame
@@ -79,6 +83,7 @@ public class StrategyConfiguration : MonoBehaviour
         {
             this.ValuePower.text = "∞";
             this.ValueTime.text = "∞";
+            return;
         }
 
         var timeCost = this.Planet.Metal / (this.Planet.MetalPerTimePerWorker * this.shipResources.Workers);

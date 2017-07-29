@@ -680,6 +680,7 @@ MonoBehaviour:
   ValueTime: {fileID: 114303042645337160}
   SliderWorkers: {fileID: 114727129136372174}
   SliderFighters: {fileID: 114764427580019964}
+  Dialog: {fileID: 1730141518412882}
 --- !u!114 &114094577730266180
 MonoBehaviour:
   m_ObjectHideFlags: 1
