@@ -74,7 +74,7 @@ public class ShipResources : MonoBehaviour
 
     public float MineMetal(MinePlanet planet, int timeMining)
     {
-        var metalMined = planet.MetalPerTimePerWorker* timeMining;
+        var metalMined = planet.MetalPerTimePerWorker * timeMining * Mathf.Log(Workers + 2);
         this.Metal = Mathf.Min(this.Metal + metalMined, this.MaxMetal);
         this.TimePassed(timeMining);
         this.PowerConsumed(this.Workers * this.WorkerPowerConsumption);
