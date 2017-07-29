@@ -13,6 +13,7 @@ public class ShipResources : MonoBehaviour
     public ShipResources()
     {
         this.CurrentPower = 0.0f;
+        this.TimeLeft = 1000;
     }
 
     public void ChargeShip(StarPower star, int timeCharging)
