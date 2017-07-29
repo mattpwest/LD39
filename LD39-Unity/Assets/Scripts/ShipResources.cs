@@ -9,6 +9,8 @@ public class ShipResources : MonoBehaviour
     public float FighterPowerConsumption = 0.7f;
     public float MetalCostPerPopulation = 10.0f;
     public float PopulationPerTimePerWorker = 2.0f;
+    public float HighRiskHours = 8.0f;
+    public float LowRiskHours = 24.0f;
 
     public float CurrentPower { get; private set; }
     public float TimeLeft { get; private set; }
@@ -21,14 +23,35 @@ public class ShipResources : MonoBehaviour
     public int WorkersAvailable => (int)this.Population - this.Fighters;
     public int FightersAvailable => (int)this.Population - this.Workers;
 
-    public float CurrentPowerConsumption => this.CurrentWorkerPowerConsumption + this.CurrentFighterPowerConsumption;
-
-    private float CurrentWorkerPowerConsumption => this.Workers * this.WorkerPowerConsumption;
-    private float CurrentFighterPowerConsumption => this.Fighters * this.FighterPowerConsumption;
     public float CurrentPowerPercentage => this.CurrentPower / this.MaxPower;
     public int MaxProducablePopulation => (int)(this.Metal / this.MetalCostPerPopulation);
     public float WorkerProductionRate => Mathf.Log(this.Workers + 1);
     public float PopulationProductionPerTime => this.WorkerProductionRate * this.PopulationPerTimePerWorker;
+    public bool WasFound {
+        get {
+            float roll = UnityEngine.Random.Range(0.0f, 1.0f);
+            if (TimeLeft <= 0)
+            {
+                return roll <= 1.0f;
+            }
+            if (TimeLeft <= HighRiskHours * Risk)
+            {
+                return roll <= 0.3f;
+            }
+            if (TimeLeft <= LowRiskHours * Risk)
+            {
+                return roll <= 0.05f;
+            }
+            return false;
+        }
+    }
+
+    public float CurrentPowerConsumption => this.CurrentWorkerPowerConsumption + this.CurrentFighterPowerConsumption;
+
+    private float CurrentWorkerPowerConsumption => this.Workers * this.WorkerPowerConsumption;
+    private float CurrentFighterPowerConsumption => this.Fighters * this.FighterPowerConsumption;
+
+    private float Risk = 1.0f;
 
     public ShipResources()
     {
@@ -141,5 +164,15 @@ public class ShipResources : MonoBehaviour
     public void ResetFighters()
     {
         this.Fighters = 0;
+    }
+
+    public void IncreaseRisk(float percentage)
+    {
+        this.Risk += this.Risk * percentage;
+    }
+
+    public void ResetRisk()
+    {
+        this.Risk = 1.0f;
     }
 }

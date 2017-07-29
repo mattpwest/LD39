@@ -96,6 +96,11 @@ public class MiningStrategyConfig : MonoBehaviour
         while (shipResources.Metal < targetMetal)
         {
             shipResources.MineMetal(this.Planet, 1);
+
+            if (shipResources.WasFound)
+            {
+                Debug.Log("We were found!");
+            }
         }
 
         HideDialog();
