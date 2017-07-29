@@ -1,28 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MinePlanet : MonoBehaviour
 {
-    public GameObject MineEventPanel;
+    public RectTransform dialog;
+    public float Metal = 100.0f;
+    public float MetalPerTimePerWorker = 0.5f;
+    private RectTransform mineEventPanel;
 
-	// Use this for initialization
 	void Start () {
-		
+	    var parent = GameObject.Find("Main Canvas");
+	    this.mineEventPanel = Instantiate(dialog, parent.transform);
+        this.mineEventPanel.gameObject.SetActive(false);
+	    this.mineEventPanel.GetComponentInChildren<StrategyConfiguration>().Planet = this;
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        this.MineEventPanel.SetActive(true);
+        this.mineEventPanel.gameObject.SetActive(true);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        this.MineEventPanel.SetActive(false);
+        this.mineEventPanel.gameObject.SetActive(false);
     }
 }
