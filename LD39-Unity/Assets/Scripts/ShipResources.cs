@@ -6,8 +6,8 @@ public class ShipResources : MonoBehaviour
     public float MaxPower = 200.0f;
     public float WorkerPowerConsumption = 0.5f;
     public float FighterPowerConsumption = 0.7f;
-    public float PopulationPerMetal = 10.0f;
-    public float PopulationPerWorker = 2.0f;
+    public float MetalCostPerPopulation = 10.0f;
+    public float PopulationPerTimePerWorker = 2.0f;
 
     public float CurrentPower { get; private set; }
     public float TimeLeft { get; private set; }
@@ -25,12 +25,14 @@ public class ShipResources : MonoBehaviour
     private float CurrentWorkerPowerConsumption => this.Workers * this.WorkerPowerConsumption;
     private float CurrentFighterPowerConsumption => this.Fighters * this.FighterPowerConsumption;
     public float CurrentPowerPercentage => this.CurrentPower / this.MaxPower;
+    public int MaxProducablePopulation => (int)(this.Metal / this.MetalCostPerPopulation);
 
     public ShipResources()
     {
         this.CurrentPower = 0.0f;
         this.TimeLeft = 1000.0f;
         this.Population = 100;
+        this.Metal = 100;
     }
 
     public void ChargeShip(StarPower star, int timeCharging)
@@ -94,9 +96,13 @@ public class ShipResources : MonoBehaviour
         this.Fighters = count;
     }
 
-    public void ResetPopulation()
+    public void ResetWorkers()
     {
         this.Workers = 0;
+    }
+
+    public void ResetFighters()
+    {
         this.Fighters = 0;
     }
 }

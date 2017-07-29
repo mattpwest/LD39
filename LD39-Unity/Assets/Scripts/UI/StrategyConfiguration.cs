@@ -55,7 +55,7 @@ public class StrategyConfiguration : MonoBehaviour
     public void ShowDialog()
     {
         this.Dialog.SetActive(true);
-        this.shipResources.ResetPopulation();
+        this.shipResources.ResetWorkers();
         this.SliderResource.value = 1.0f;
         this.UpdateCostValues();
     }
