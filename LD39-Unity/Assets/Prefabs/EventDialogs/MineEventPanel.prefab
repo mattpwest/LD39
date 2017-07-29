@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 224766291045926458}
   - component: {fileID: 222481505614557036}
   - component: {fileID: 114737358672690906}
+  - component: {fileID: 114080424948042814}
   m_Layer: 5
   m_Name: StrategyPanel
   m_TagString: Untagged
@@ -558,6 +559,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114080424948042814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1286700858977124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836e41da78157b44b8786706a2b12f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ValueAvailable: {fileID: 114567471414400132}
+  ValueWorkers: {fileID: 114572275710359106}
+  ValueFighers: {fileID: 114681130676341230}
+  SliderWorkers: {fileID: 114727129136372174}
+  SliderFighters: {fileID: 114764427580019964}
 --- !u!114 &114094577730266180
 MonoBehaviour:
   m_ObjectHideFlags: 1

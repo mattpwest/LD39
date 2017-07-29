@@ -14,6 +14,9 @@ public class ShipResources : MonoBehaviour
     public int Fighters { get; private set; }
 
     public int PopulationAvailable => this.Population - this.Workers - this.Fighters;
+    public int WorkersAvailable => this.Population - this.Fighters;
+    public int FightersAvailable => this.Population - this.Workers;
+
     public float CurrentPowerConsumption => this.CurrentWorkerPowerConsumption + this.CurrentFighterPowerConsumption;
 
     private float CurrentWorkerPowerConsumption => this.Workers * this.WorkerPowerConsumption;
@@ -50,7 +53,7 @@ public class ShipResources : MonoBehaviour
 
     public void SetActiveWorkers(int count)
     {
-        if (count > this.Population - Fighters)
+        if (count > this.WorkersAvailable)
         {
             throw new ArgumentOutOfRangeException("Available population is less than the count to activate!");
         }
@@ -60,7 +63,7 @@ public class ShipResources : MonoBehaviour
 
     public void SetActiveFighters(int count)
     {
-        if (count > this.Population - this.Workers)
+        if (count > this.FightersAvailable)
         {
             throw new ArgumentOutOfRangeException("Available population is less than the count to activate!");
         }
