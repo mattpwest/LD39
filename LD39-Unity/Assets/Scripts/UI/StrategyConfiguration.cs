@@ -13,6 +13,8 @@ public class StrategyConfiguration : MonoBehaviour
     public Slider SliderWorkers;
     public Slider SliderFighters;
 
+    public GameObject Dialog;
+
     private ShipResources shipResources;
     public MinePlanet Planet { get; set; }
 
@@ -37,11 +39,24 @@ public class StrategyConfiguration : MonoBehaviour
         }
     }
 
+    public void HideDialog()
+    {
+        this.Dialog.SetActive(false);
+    }
+
+    public void ShowDialog()
+    {
+        this.Dialog.SetActive(true);
+        this.shipResources.ResetPopulation();
+        this.UpdateCostValues();
+    }
+
     private void ValueWorkersChangeCheck(float value)
     {
         this.shipResources.SetActiveWorkers((int)value);
 
         this.UpdateSlidersMaxValue();
+        this.UpdateCostValues();
     }
 
     private void ValueFightersChangeCheck(float value)
@@ -49,11 +64,27 @@ public class StrategyConfiguration : MonoBehaviour
         this.shipResources.SetActiveFighters((int)value);
 
         this.UpdateSlidersMaxValue();
+        this.UpdateCostValues();
     }
 
     private void UpdateSlidersMaxValue()
     {
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
         this.SliderFighters.maxValue = this.shipResources.FightersAvailable;
+    }
+
+    private void UpdateCostValues()
+    {
+        if(this.shipResources.Workers == 0)
+        {
+            this.ValuePower.text = "∞";
+            this.ValueTime.text = "∞";
+        }
+
+        var timeCost = this.Planet.Metal / (this.Planet.MetalPerTimePerWorker * this.shipResources.Workers);
+        var powerCost = this.shipResources.CurrentPowerConsumption * timeCost;
+
+        this.ValuePower.text = $"{powerCost}";
+        this.ValueTime.text = $"{timeCost}";
     }
 }

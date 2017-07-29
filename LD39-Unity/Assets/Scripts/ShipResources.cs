@@ -70,4 +70,10 @@ public class ShipResources : MonoBehaviour
 
         this.Fighters = count;
     }
+
+    public void ResetPopulation()
+    {
+        this.Workers = 0;
+        this.Fighters = 0;
+    }
 }
