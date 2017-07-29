@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ResourcesPanel : MonoBehaviour
 {
     public RectTransform ValuePower;
     public RectTransform ValueTime;
+    public GameObject ProductionDialog;
 
     private ShipResources shipResources;
     private Text valuePower;
@@ -34,5 +33,10 @@ public class ResourcesPanel : MonoBehaviour
     public void ExecuteChargeEvent()
     {
         this.rechargeEvent.Execute();
+    }
+
+    public void ShowProduceDialog()
+    {
+        this.ProductionDialog.SetActive(true);
     }
 }
