@@ -12,14 +12,14 @@ public class ShipResources : MonoBehaviour
 
     public float CurrentPower { get; private set; }
     public float TimeLeft { get; private set; }
-    public int Population { get; private set; }
+    public float Metal { get; private set; }
+    public float Population { get; private set; }
     public int Workers { get; private set; }
     public int Fighters { get; private set; }
-    public float Metal { get; private set; }
 
-    public int PopulationAvailable => this.Population - this.Workers - this.Fighters;
-    public int WorkersAvailable => this.Population - this.Fighters;
-    public int FightersAvailable => this.Population - this.Workers;
+    public int PopulationAvailable => (int)this.Population - this.Workers - this.Fighters;
+    public int WorkersAvailable => (int)this.Population - this.Fighters;
+    public int FightersAvailable => (int)this.Population - this.Workers;
 
     public float CurrentPowerConsumption => this.CurrentWorkerPowerConsumption + this.CurrentFighterPowerConsumption;
 
@@ -27,6 +27,8 @@ public class ShipResources : MonoBehaviour
     private float CurrentFighterPowerConsumption => this.Fighters * this.FighterPowerConsumption;
     public float CurrentPowerPercentage => this.CurrentPower / this.MaxPower;
     public int MaxProducablePopulation => (int)(this.Metal / this.MetalCostPerPopulation);
+    public float WorkerProductionRate => Mathf.Log(this.Workers + 1);
+    public float PopulationProductionPerTime => this.WorkerProductionRate * this.PopulationPerTimePerWorker;
 
     public ShipResources()
     {
@@ -70,6 +72,26 @@ public class ShipResources : MonoBehaviour
 
         var distanceMod = (star.MaxDistance - distance) / star.MaxDistance;
         return deltaPower / (distanceMod * star.PowerPerTime);
+    }
+
+    public float ProducePopulation()
+    {
+        var populationProduced = this.PopulationProductionPerTime;
+
+        this.Metal -= populationProduced * this.MetalCostPerPopulation;
+
+        this.Population += populationProduced;
+
+        this.TimePassed(1.0f);
+
+        this.ConsumePower();
+
+        return populationProduced;
+    }
+
+    private void ConsumePower()
+    {
+        this.CurrentPower -= this.CurrentPowerConsumption;
     }
 
     public float MineMetal(MinePlanet planet, int timeMining)

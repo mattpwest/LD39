@@ -32,6 +32,6 @@ public class ResourcesPanel : MonoBehaviour
 
     public void ShowProduceDialog()
     {
-        this.ProductionDialog.SetActive(true);
+        this.ProductionDialog.GetComponentInChildren<ProductionStrategyConfiguration>().ShowDialog();
     }
 }

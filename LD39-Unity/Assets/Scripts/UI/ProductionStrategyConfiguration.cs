@@ -49,6 +49,24 @@ public class ProductionStrategyConfiguration : MonoBehaviour
     public void ShowDialog()
     {
         this.Dialog.SetActive(true);
+
+        this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
+        this.SliderPopulation.maxValue = this.shipResources.MaxProducablePopulation;
+
+        this.UpdateCostValues();
+    }
+
+    public void Execute()
+    {
+        var populationToProduce = (int)this.SliderPopulation.value;
+        var populationProduced = 0.0f;
+
+        while(populationProduced < populationToProduce)
+        {
+            populationProduced += this.shipResources.ProducePopulation();
+        }
+
+        this.HideDialog();
     }
 
     private void ValuePopulationChangeCheck(float value)
@@ -71,7 +89,7 @@ public class ProductionStrategyConfiguration : MonoBehaviour
     {
         var populationToProduce = (int)this.SliderPopulation.value;
 
-        var timeCost = populationToProduce / (this.shipResources.PopulationPerTimePerWorker * (Mathf.Log(this.shipResources.Workers + 1)));
+        var timeCost = populationToProduce / this.shipResources.PopulationProductionPerTime;
         var powerCost = this.shipResources.CurrentPowerConsumption * timeCost;
         var metalCost = populationToProduce * this.shipResources.MetalCostPerPopulation;
 
