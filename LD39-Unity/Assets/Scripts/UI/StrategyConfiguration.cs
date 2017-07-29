@@ -82,7 +82,7 @@ public class StrategyConfiguration : MonoBehaviour
         }
 
         var metalMined = this.Planet.Metal * this.SliderResource.value;
-        var timeCost =  metalMined / (this.Planet.MetalPerTimePerWorker * (Mathf.Log(this.shipResources.Workers + 1)));
+        var timeCost =  metalMined / (this.Planet.MetalPerTimePerWorker * (Mathf.Log(this.shipResources.Workers + 2)));
         var powerCost = this.shipResources.CurrentPowerConsumption * timeCost;
 
         this.ValuePower.text = $"{Math.Round(powerCost)}";

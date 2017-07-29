@@ -21,6 +21,7 @@ public class ShipResources : MonoBehaviour
 
     private float CurrentWorkerPowerConsumption => this.Workers * this.WorkerPowerConsumption;
     private float CurrentFighterPowerConsumption => this.Fighters * this.FighterPowerConsumption;
+    public float CurrentPowerPercentage => this.CurrentPower / this.MaxPower;
 
     public ShipResources()
     {
@@ -44,6 +45,25 @@ public class ShipResources : MonoBehaviour
         this.CurrentPower += distanceMod * star.PowerPerTime * timeCharging;
 
         this.CurrentPower = Mathf.Min(this.CurrentPower, this.MaxPower);
+    }
+
+    public float ChargeShipTime(StarPower star, float targetPower)
+    {
+        var deltaPower = targetPower - this.CurrentPower;
+        if (deltaPower < 0)
+        {
+            return 0.0f;
+        }
+
+        var distanceVector = (Vector2)this.transform.position - star.Position;
+        var distance = distanceVector.magnitude;
+        if (distance > star.MaxDistance)
+        {
+            return float.PositiveInfinity;
+        }
+
+        var distanceMod = (star.MaxDistance - distance) / star.MaxDistance;
+        return deltaPower / (distanceMod * star.PowerPerTime);
     }
 
     public void TimePassed(float time)
