@@ -66,6 +66,11 @@ public class JumpStrategyConfig : MonoBehaviour, IEvent
         this.ValuePower.text = $"{Mathf.Round(powerCost)}";
     }
 
+    public bool HasDialog()
+    {
+        return true;
+    }
+
     public void HideDialog()
     {
         this.Dialog.SetActive(false);

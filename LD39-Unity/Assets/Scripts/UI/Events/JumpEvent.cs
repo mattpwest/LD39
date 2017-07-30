@@ -51,9 +51,6 @@ namespace Assets.Scripts.UI.Events
             };
         }
 
-        public bool IsBattle()
-        {
-            return false;
-        }
+        public bool IsBattle => false;
     }
 }
