@@ -108,6 +108,145 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &18651217
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1967731573}
+    m_Modifications:
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074952502403982, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1274144857}
+    - target: {fileID: 224581339660213612, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224581339660213612, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224744193931583046, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224744193931583046, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224744193931583046, guid: 7d445cf3a2439644ca4bec86db550fcc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1361198331079518, guid: 7d445cf3a2439644ca4bec86db550fcc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7d445cf3a2439644ca4bec86db550fcc, type: 2}
+  m_IsPrefabParent: 0
+--- !u!224 &18651218 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224611684692641484, guid: 7d445cf3a2439644ca4bec86db550fcc,
+    type: 2}
+  m_PrefabInternal: {fileID: 18651217}
 --- !u!1 &26517917
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +749,7 @@ MonoBehaviour:
   Planet: {fileID: 59964678}
   ChargeButton: {fileID: 1654108926}
   ProduceButton: {fileID: 434220607}
+  JumpButton: {fileID: 1738895210}
   StarProximityNotifier: {fileID: 1697499478}
   MinePlanet: {fileID: 59964680}
 --- !u!82 &259570382
@@ -799,7 +939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: 5, y: -60}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &434220609
@@ -1576,6 +1716,7 @@ MonoBehaviour:
   ValueMetal: {fileID: 865958468}
   ProductionDialog: {fileID: 622025627}
   ChargeDialog: {fileID: 1274144855}
+  JumpDialog: {fileID: 0}
 --- !u!114 &1224583944 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114871455434759340, guid: 6c36202d3656ba04597e072861e6763a,
@@ -1666,6 +1807,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224225618660156778, guid: 2b50d5315f7fae2498e4d8e7a38c88eb,
     type: 2}
   m_PrefabInternal: {fileID: 2045992690}
+--- !u!114 &1274144857 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114273207911743206, guid: 2b50d5315f7fae2498e4d8e7a38c88eb,
+    type: 2}
+  m_PrefabInternal: {fileID: 2045992690}
+  m_Script: {fileID: 11500000, guid: f46b13455a29e8240b05bd07db373cd9, type: 3}
 --- !u!224 &1469248532 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224429608615323262, guid: 8a4998d5e25671845a559d3e45d3b99f,
@@ -2072,7 +2219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -30}
+  m_AnchoredPosition: {x: 5, y: -30}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1654108928
@@ -2409,7 +2556,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 5, y: -100}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1738895212
@@ -2450,7 +2597,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1738895213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1161606516}
+        m_MethodName: ShowJumpDialog
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1738895213
@@ -2685,6 +2843,7 @@ RectTransform:
   - {fileID: 280478622}
   - {fileID: 1469248532}
   - {fileID: 2079462475}
+  - {fileID: 18651218}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

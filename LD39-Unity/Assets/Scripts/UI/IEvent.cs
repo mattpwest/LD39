@@ -7,7 +7,7 @@
         void ShowDialog();
         void ExecuteStep();
         EventResult GetResult(bool wasAttacked);
-        bool IsBattle();
+        bool IsBattle { get; }
     }
 
     public class EventResult

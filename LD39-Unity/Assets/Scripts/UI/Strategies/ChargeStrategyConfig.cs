@@ -105,8 +105,5 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
         return eventResult;
     }
 
-    public bool IsBattle()
-    {
-        return false;
-    }
+    public bool IsBattle => false;
 }

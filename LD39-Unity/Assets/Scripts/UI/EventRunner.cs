@@ -44,7 +44,7 @@ public class EventRunner : MonoBehaviour
             theEvent.ExecuteStep();
             lastEvent = theEvent;
 
-            if (!lastEvent.IsBattle())
+            if (!lastEvent.IsBattle)
             {
                 if (shipResources.WasFound)
                 {

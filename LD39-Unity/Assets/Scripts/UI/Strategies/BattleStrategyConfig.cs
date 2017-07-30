@@ -197,8 +197,5 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         return this.eventResult;
     }
 
-    public bool IsBattle()
-    {
-        return true;
-    }
+    public bool IsBattle => true;
 }

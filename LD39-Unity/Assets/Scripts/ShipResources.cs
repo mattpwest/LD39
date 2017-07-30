@@ -185,6 +185,13 @@ public class ShipResources : MonoBehaviour
 
     public void PrepareForJump(int timeStep)
     {
+        this.PrepareForJumpWithoutTimeConsumption(timeStep);
+
+        this.TimePassed(timeStep);
+    }
+
+    private void PrepareForJumpWithoutTimeConsumption(int timeStep)
+    {
         this.JumpPrep += this.Workers * this.WorkerJumpPrepAbility * timeStep;
     }
 
@@ -208,7 +215,9 @@ public class ShipResources : MonoBehaviour
         var theirCasualtyRate = this.Fighters / enemies;
 
         TakeCasualties(ourCasualtyRate * timeStep);
-        PrepareForJump(timeStep);
+        this.PrepareForJumpWithoutTimeConsumption(timeStep);
+
+        this.TimePassed(timeStep);
 
         return enemies - theirCasualtyRate;
     }

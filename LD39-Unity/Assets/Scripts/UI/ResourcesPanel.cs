@@ -11,6 +11,8 @@ public class ResourcesPanel : MonoBehaviour
 
     public GameObject ChargeDialog;
 
+    public GameObject JumpDialog;
+
     private ShipResources shipResources;
 
     void Start ()
@@ -33,5 +35,10 @@ public class ResourcesPanel : MonoBehaviour
     public void ShowProduceDialog()
     {
         this.ProductionDialog.GetComponentInChildren<ProductionStrategyConfig>().ShowDialog();
+    }
+
+    public void ShowJumpDialog()
+    {
+        this.JumpDialog.GetComponentInChildren<JumpStrategyConfig>().ShowDialog();
     }
 }

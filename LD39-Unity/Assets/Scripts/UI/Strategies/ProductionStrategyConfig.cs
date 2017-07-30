@@ -147,8 +147,5 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
         return this.eventResult;
     }
 
-    public bool IsBattle()
-    {
-        return false;
-    }
+    public bool IsBattle => false;
 }

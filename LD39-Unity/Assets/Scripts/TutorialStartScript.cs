@@ -14,6 +14,7 @@ public class TutorialStartScript : MonoBehaviour
     public GameObject Planet;
     public GameObject ChargeButton;
     public GameObject ProduceButton;
+    public GameObject JumpButton;
     public StarProximityNotifier StarProximityNotifier;
     public MinePlanet MinePlanet;
 
@@ -23,6 +24,7 @@ public class TutorialStartScript : MonoBehaviour
 	    this.Planet.SetActive(false);
 	    this.ChargeButton.SetActive(false);
 	    this.ProduceButton.SetActive(false);
+	    this.JumpButton.SetActive(false);
         this.ChargeExecuteButton.onClick.AddListener(this.OnChargeExecuteClick);
         this.StarProximityNotifier.OnProximityEntered.AddListener(this.OnStarProximityEntered);
         this.MinePlanet.OnDialogCreated.AddListener(this.OnPlanetDialogCreated);
@@ -61,6 +63,8 @@ public class TutorialStartScript : MonoBehaviour
 
     private void OnProduceExecuteClick()
     {
+        this.JumpButton.SetActive(true);
+
         if(this.AudioSource.isPlaying)
         {
             this.AudioSource.Stop();
