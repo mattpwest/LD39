@@ -172,6 +172,7 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         {
             this.eventResult.Title = "Defeat!";
             this.eventResult.FlavourText = "They have destroyed us all...";
+            this.eventResult.OptionalNextEvent = new LostEvent();
         }
         else if (this.Enemies < 1.0f)
         {
