@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.UI.Events
 {
-    class LostEvent : IEvent
+    class LostEscapeEvent : IEvent
     {
         private float startTime;
 
 
-        public LostEvent()
+        public LostEscapeEvent()
         {
         }
 
@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI.Events
 
         public void ExecuteStep()
         {
-            SceneManager.LoadScene("Lost", LoadSceneMode.Single);
+            SceneManager.LoadScene("LostEscape", LoadSceneMode.Single);
         }
 
         public EventResult GetResult(bool wasAttacked)

@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.UI.Events;
 using UnityEngine;
 
 public class ShipResources : MonoBehaviour
@@ -14,6 +15,7 @@ public class ShipResources : MonoBehaviour
     public float JumpCost = 30.0f;
     public float WorkerJumpPrepAbility = 0.5f;
     public GameObject NextSystem;
+    public int JumpLimit = 2;
 
     public float CurrentPower { get; private set; }
     public float TimeLeft { get; private set; }
@@ -54,6 +56,7 @@ public class ShipResources : MonoBehaviour
 
     public float CurrentPowerConsumption => this.CurrentWorkerPowerConsumption + this.CurrentFighterPowerConsumption;
 
+    private int JumpCount = 0;
     private float CurrentWorkerPowerConsumption => this.Workers * this.WorkerPowerConsumption;
     private float CurrentFighterPowerConsumption => this.Fighters * this.FighterPowerConsumption;
 
@@ -200,6 +203,12 @@ public class ShipResources : MonoBehaviour
 
     public void Jump()
     {
+        JumpCount++;
+        if (JumpCount >= JumpLimit)
+        {
+            new LostEscapeEvent().ExecuteStep();
+        }
+
         this.TimeLeft = 48.0f;
         this.ResetJumpPrep();
         this.ResetRisk();
