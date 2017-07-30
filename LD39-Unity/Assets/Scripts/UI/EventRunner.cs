@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EventRunner : MonoBehaviour
 {
+    public RectTransform resultsDialog;
     private List<IEvent> events = new List<IEvent>();
     private ShipResources shipResources;
 
@@ -47,7 +48,8 @@ public class EventRunner : MonoBehaviour
             // TODO: Add combat event
         }
 
-        // TODO: Pop results dialog
+        // TODO: Populate the results dialog
+        resultsDialog.gameObject.SetActive(true);
 
 
     }
