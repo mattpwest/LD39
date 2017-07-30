@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-public class ProductionStrategyConfiguration : MonoBehaviour, IEvent
+public class ProductionStrategyConfig : MonoBehaviour, IEvent
 {
     public Text ValueAvailable;
     public Text ValueWorkers;
@@ -23,12 +23,24 @@ public class ProductionStrategyConfiguration : MonoBehaviour, IEvent
     private EventRunner eventRunner;
 
     private float timeCost;
+    private EventResult eventResult;
+    private float startPopulation;
+    private float startPower;
+    private float startMetal;
 
     // Use this for initialization
     void Start()
     {
         this.SliderPopulation.onValueChanged.AddListener(this.ValuePopulationChangeCheck);
         this.SliderWorkers.onValueChanged.AddListener(this.ValueWorkersChangeCheck);
+
+        this.eventResult = new EventResult
+        {
+            Cost1 = new EventResultItem { Name = "Power" },
+            Cost2 = new EventResultItem { Name = "Time" },
+            Cost3 = new EventResultItem { Name = "Metal" },
+            Gain1 = new EventResultItem { Name = "Population" }
+        };
     }
 
     void Awake()
@@ -65,11 +77,18 @@ public class ProductionStrategyConfiguration : MonoBehaviour, IEvent
 
     public void ExecuteStep()
     {
+        this.eventResult.Cost2.Value += 1;
         this.shipResources.ProducePopulation();
     }
 
     public void Execute()
     {
+        this.eventResult.Cost2.Value = 0;
+
+        this.startPower = this.shipResources.CurrentPower;
+        this.startMetal = this.shipResources.Metal;
+        this.startPopulation = this.shipResources.Population;
+
         this.eventRunner.AddEvents(this, (int) this.timeCost);
     }
 
@@ -101,5 +120,25 @@ public class ProductionStrategyConfiguration : MonoBehaviour, IEvent
         this.ValueTime.text = timeCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(timeCost)}";
         this.ValueMetal.text = metalCost.IsInfinityOrNan() ? "∞" : $"{Math.Round(metalCost)}";
         this.ValuePopulationGain.text = $"{populationToProduce}";
+    }
+
+    public EventResult GetResult(bool wasAttacked)
+    {
+        if (wasAttacked)
+        {
+            this.eventResult.Title = "Production interrupted!";
+            this.eventResult.FlavourText = "They've found us - we are under attack! Cancel current production run and switch to combat configurations!";
+        }
+        else
+        {
+            this.eventResult.Title = "Production completed";
+            this.eventResult.FlavourText = "Production run of new robots has been completed.";
+        }
+
+        this.eventResult.Cost1.Value = (int) Math.Abs(this.startPower - this.shipResources.CurrentPower);
+        this.eventResult.Cost3.Value = (int) (this.startMetal - this.shipResources.Metal);
+        this.eventResult.Gain1.Value = (int) (this.shipResources.Population - this.startPopulation);
+
+        return this.eventResult;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.UI;
+﻿using System;
+using Assets.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,10 +16,20 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
     private EventRunner eventRunner;
     private float chargePower;
     private float chargeTime;
+    private float startPower;
+    private EventResult eventResult;
+    
 
-    void Start () {
-        
+    void Start ()
+    {
         this.SliderPower.onValueChanged.AddListener(this.SliderPowerChanged);
+
+        this.eventResult = new EventResult
+        {
+            Cost1 = new EventResultItem { Name = "Time" },
+            Gain1 = new EventResultItem { Name = "Power" }
+        };
+
     }
 
     void Awake()
@@ -59,12 +70,33 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
 
     public void ExecuteStep()
     {
+        this.eventResult.Cost1.Value += 1;
         shipResources.ChargeShip(this.starPower, 1);
     }
 
     public void Execute()
     {
-        Debug.Log((int) this.chargeTime);
+        this.startPower = this.shipResources.CurrentPower;
+        this.eventResult.Cost1.Value = 0;
+        this.eventResult.Gain1.Value = 0;
         this.eventRunner.AddEvents(this, (int) this.chargeTime);
+    }
+
+    public EventResult GetResult(bool wasAttacked)
+    {
+        if (wasAttacked)
+        {
+            eventResult.Title = "Charging interrupted!";
+            eventResult.FlavourText = "They've found us - we are under attack! Quickly - retract the solar collectors!";
+        }
+        else
+        {
+            eventResult.Title = "Charging completed";
+            eventResult.FlavourText = "Charging has been completed.";
+        }
+
+        eventResult.Gain1.Value = (int) (this.shipResources.CurrentPower - startPower);
+
+        return eventResult;
     }
 }

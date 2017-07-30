@@ -23,12 +23,22 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
 
     private float metalMined;
     private int timeCost;
+    private float startPower;
+    private float startMetal;
+    private EventResult eventResult;
 
     // Use this for initialization
 	void Start ()
     {
         this.SliderResource.onValueChanged.AddListener(this.ValueResourceChangeCheck);
         this.SliderWorkers.onValueChanged.AddListener(this.ValueWorkersChangeCheck);
+
+        this.eventResult = new EventResult
+        {
+            Cost1 = new EventResultItem {Name = "Power"},
+            Cost2 = new EventResultItem {Name = "Time"},
+            Gain1 = new EventResultItem {Name = "Metal"}
+        };
     }
 
     void Awake()
@@ -95,11 +105,38 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
 
     public void Execute()
     {
+        this.eventResult.Cost1.Value = 0;
+        this.eventResult.Cost2.Value = 0;
+        this.eventResult.Gain1.Value = 0;
+
+        this.startMetal = this.shipResources.Metal;
+        this.startPower = this.shipResources.CurrentPower;
+
         this.eventRunner.AddEvents(this, timeCost);
     }
 
     public void ExecuteStep()
     {
+        this.eventResult.Cost2.Value += 1;
         shipResources.MineMetal(this.Planet, 1);
+    }
+
+    public EventResult GetResult(bool wasAttacked)
+    {
+        if (wasAttacked)
+        {
+            this.eventResult.Title = "Mining interrupted!";
+            this.eventResult.FlavourText = "They've found us - we are under attack! Abandon mining operation and switch to combat configurations!";
+        }
+        else
+        {
+            this.eventResult.Title = "Mining completed";
+            this.eventResult.FlavourText = "Mining operation has been completed.";
+        }
+
+        this.eventResult.Cost1.Value = (int) Math.Abs(this.startPower - this.shipResources.CurrentPower);
+        this.eventResult.Gain1.Value = (int) (this.shipResources.Metal - this.startMetal);
+
+        return this.eventResult;
     }
 }

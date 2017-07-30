@@ -29,9 +29,11 @@ public class EventRunner : MonoBehaviour
     private void ExecuteEvents()
     {
         bool found = false;
+        IEvent lastEvent = null;
         foreach (var theEvent in events)
         {
             theEvent.ExecuteStep();
+            lastEvent = theEvent;
 
             if (shipResources.WasFound)
             {
@@ -48,7 +50,8 @@ public class EventRunner : MonoBehaviour
             // TODO: Add combat event
         }
 
-        // TODO: Populate the results dialog
+        var eventResult = lastEvent.GetResult(found);
+        resultsDialog.GetComponent<ResultsPanel>().Results = eventResult;
         resultsDialog.gameObject.SetActive(true);
 
 
