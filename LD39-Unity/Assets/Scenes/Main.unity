@@ -843,6 +843,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 761705848}
   m_Script: {fileID: 11500000, guid: 0faabb8007da21d4ca87036661100f02, type: 3}
+--- !u!1 &306444218 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1361198331079518, guid: 7d445cf3a2439644ca4bec86db550fcc,
+    type: 2}
+  m_PrefabInternal: {fileID: 18651217}
 --- !u!1 &411536157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,7 +1721,7 @@ MonoBehaviour:
   ValueMetal: {fileID: 865958468}
   ProductionDialog: {fileID: 622025627}
   ChargeDialog: {fileID: 1274144855}
-  JumpDialog: {fileID: 0}
+  JumpDialog: {fileID: 306444218}
 --- !u!114 &1224583944 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114871455434759340, guid: 6c36202d3656ba04597e072861e6763a,
