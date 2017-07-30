@@ -13,6 +13,7 @@ public class ShipResources : MonoBehaviour
     public float LowRiskHours = 24.0f;
     public float JumpCost = 30.0f;
     public float WorkerJumpPrepAbility = 0.5f;
+    public GameObject NextSystem;
 
     public float CurrentPower { get; private set; }
     public float TimeLeft { get; private set; }
@@ -203,7 +204,11 @@ public class ShipResources : MonoBehaviour
         this.ResetJumpPrep();
         this.ResetRisk();
 
-        // TODO: Actually go somewhere else?
+        this.transform.SetParent(this.NextSystem.transform);
+        this.transform.position = this.NextSystem.transform.position;
+        var nextSystemPosition = this.NextSystem.transform.position;
+        var cameraPosition = new Vector3(nextSystemPosition.x, nextSystemPosition.y, -10);
+        Camera.main.transform.position = cameraPosition;
     }
 
     public float Battle(float enemies, int timeStep)

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.UI;
+using UI.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -112,6 +113,12 @@ public class JumpStrategyConfig : MonoBehaviour, IEvent
         {
             this.eventResult.Title = "Jump successful!";
             this.eventResult.FlavourText = "We have jumped to the next system! It should take the terrans some while longer to find us...";
+            this.eventResult.OptionalNextEvent = new JumpEvent(
+                shipResources,
+                "Epsilon Eridani",
+                "We have arrived in the Epsilon Eridani system. It will take the terrans some time to search all the " +
+                "systems we may have jumped to, which gives us some time to prepare for our next jump..."
+            );
         }
 
         this.eventResult.Cost2.Value = (int)Mathf.Abs(this.startPower - this.shipResources.CurrentPower);

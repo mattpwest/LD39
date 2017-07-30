@@ -1,14 +1,14 @@
 ﻿using System;
+using Assets.Scripts.UI;
 
-namespace Assets.Scripts.UI.Events
+namespace UI.Events
 {
-    class JumpEvent : IEvent
+    public class JumpEvent : IEvent
     {
         private ShipResources shipResources;
         private String title;
         private String flavourText;
         private float startTime;
-
 
         public JumpEvent(ShipResources shipResources, String title, String flavourText)
         {
@@ -34,19 +34,19 @@ namespace Assets.Scripts.UI.Events
 
         public void ExecuteStep()
         {
-            startTime = shipResources.TimeLeft;
+            this.startTime = this.shipResources.TimeLeft;
 
-            shipResources.Jump();
+            this.shipResources.Jump();
         }
 
         public EventResult GetResult(bool wasAttacked)
         {
-            var timeGained = (int) Math.Round(shipResources.TimeLeft - startTime);
+            var timeGained = (int) Math.Round(this.shipResources.TimeLeft - this.startTime);
 
             return new EventResult()
             {
-                Title = title,
-                FlavourText = flavourText,
+                Title = this.title,
+                FlavourText = this.flavourText,
                 Gain1 = new EventResultItem() {Name = "Time", Value = timeGained}
             };
         }

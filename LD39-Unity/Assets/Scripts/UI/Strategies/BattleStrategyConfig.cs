@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.UI;
 using Assets.Scripts.UI.Events;
+using UI.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
