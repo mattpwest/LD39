@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils;
 
 public class MinePlanet : MonoBehaviour
 {
@@ -6,11 +7,20 @@ public class MinePlanet : MonoBehaviour
     public float Metal = 100.0f;
     public float MetalPerTimePerWorker = 0.5f;
 
+    public DialogCreatedEvent OnDialogCreated { get; }
+
     private MiningStrategyConfig miningStrategyConfig;
 
-	void Start () {
+    public MinePlanet()
+    {
+        this.OnDialogCreated = new DialogCreatedEvent();
+    }
+
+    void Start () {
+
 	    var parent = GameObject.Find("Main Canvas");
 	    var panel = Instantiate(dialog, parent.transform);
+        this.OnDialogCreated.Invoke(panel);
 	    this.miningStrategyConfig = panel.GetComponentInChildren<MiningStrategyConfig>();
 	    this.miningStrategyConfig.Planet = this;
         this.miningStrategyConfig.HideDialog();
