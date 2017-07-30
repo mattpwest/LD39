@@ -1022,9 +1022,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChargeExecuteButton: {fileID: 1031272434}
+  ProduceExecuteButton: {fileID: 1224583944}
   AudioSource: {fileID: 259570382}
   MiningClip: {fileID: 8300000, guid: b70b81befef45e0499f6d2aa907c6e9b, type: 3}
   ProductionClip: {fileID: 8300000, guid: fd5f2ef5e8577964c8df2ba580f8dda0, type: 3}
+  JumpClip: {fileID: 8300000, guid: 1bd3bfd0e7fbb8941bddfd81dfbf080d, type: 3}
   Planet: {fileID: 59964678}
   ChargeButton: {fileID: 1654108926}
   ProduceButton: {fileID: 434220607}
@@ -6381,7 +6383,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1480549828}
   - {fileID: 1705391033}
   - {fileID: 1936409695}
   - {fileID: 2101431711}
@@ -8104,6 +8105,7 @@ RectTransform:
   - {fileID: 622025628}
   - {fileID: 280478622}
   - {fileID: 1469248532}
+  - {fileID: 2079462475}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
