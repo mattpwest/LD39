@@ -114,14 +114,14 @@ public class ShipResources : MonoBehaviour
 
         this.TimePassed(1.0f);
 
-        this.ConsumePower();
+        this.ConsumePower(1);
 
         return populationProduced;
     }
 
-    private void ConsumePower()
+    private void ConsumePower(int timeStep)
     {
-        this.CurrentPower -= this.CurrentPowerConsumption;
+        this.CurrentPower -= this.CurrentPowerConsumption * timeStep;
     }
 
     public float MineMetal(MinePlanet planet, int timeMining)
@@ -129,13 +129,8 @@ public class ShipResources : MonoBehaviour
         var metalMined = planet.MetalPerTimePerWorker * timeMining * Mathf.Log(Workers + 2);
         this.Metal = Mathf.Min(this.Metal + metalMined, this.MaxMetal);
         this.TimePassed(timeMining);
-        this.PowerConsumed(this.Workers * this.WorkerPowerConsumption);
+        this.ConsumePower(timeMining);
         return metalMined;
-    }
-
-    private void PowerConsumed(float powerConsumed)
-    {
-        this.CurrentPower = Math.Max(0.0f, this.CurrentPower - powerConsumed);
     }
 
     public void TimePassed(float timePassed)
@@ -187,6 +182,8 @@ public class ShipResources : MonoBehaviour
     {
         this.PrepareForJumpWithoutTimeConsumption(timeStep);
 
+        this.ConsumePower(timeStep);
+
         this.TimePassed(timeStep);
     }
 
@@ -218,6 +215,8 @@ public class ShipResources : MonoBehaviour
         this.PrepareForJumpWithoutTimeConsumption(timeStep);
 
         this.TimePassed(timeStep);
+
+        this.ConsumePower(timeStep);
 
         return enemies - theirCasualtyRate;
     }
