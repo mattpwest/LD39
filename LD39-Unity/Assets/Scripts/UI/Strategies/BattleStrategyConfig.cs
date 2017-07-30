@@ -3,6 +3,7 @@ using Assets.Scripts.UI;
 using Assets.Scripts.UI.Events;
 using UI.Events;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class BattleStrategyConfig : MonoBehaviour, IEvent
@@ -23,6 +24,7 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
     public GameObject Dialog;
 
     public float Enemies { get; set; }
+    public UnityEvent OnBattleStarted { get; }
 
     private EventRunner eventRunner;
     private ShipResources shipResources;
@@ -31,6 +33,11 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
     private float startPower;
     private float startPopulation;
     private EventResult eventResult;
+
+    public BattleStrategyConfig()
+    {
+        this.OnBattleStarted = new UnityEvent();
+    }
 
     // Use this for initialization
 	void Start ()
@@ -151,6 +158,8 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
 
     public void Execute()
     {
+        this.OnBattleStarted.Invoke();
+
         this.eventResult.Cost1.Value = 0;
         this.eventResult.Cost2.Value = 0;
         this.eventResult.Cost3.Value = 0;
