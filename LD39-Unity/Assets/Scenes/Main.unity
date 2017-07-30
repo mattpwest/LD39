@@ -831,6 +831,7 @@ MonoBehaviour:
   JumpButton: {fileID: 1738895210}
   StarProximityNotifier: {fileID: 1697499478}
   MinePlanet: {fileID: 59964680}
+  BattleStrategyConfig: {fileID: 1769156770}
 --- !u!82 &259570382
 AudioSource:
   m_ObjectHideFlags: 0
