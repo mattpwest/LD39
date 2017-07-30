@@ -37,9 +37,6 @@ namespace Assets.Scripts.UI.Events
             throw new NotImplementedException();
         }
 
-        public bool IsBattle()
-        {
-            return false;
-        }
+        public bool IsBattle => false;
     }
 }
