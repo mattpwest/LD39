@@ -6,6 +6,7 @@
         void ShowDialog();
         void ExecuteStep();
         EventResult GetResult(bool wasAttacked);
+        bool IsBattle();
     }
 
     public class EventResult

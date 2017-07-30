@@ -11,6 +11,8 @@ public class ShipResources : MonoBehaviour
     public float PopulationPerTimePerWorker = 2.0f;
     public float HighRiskHours = 8.0f;
     public float LowRiskHours = 24.0f;
+    public float JumpCost = 30.0f;
+    public float WorkerJumpPrepAbility = 0.5f;
 
     public float CurrentPower { get; private set; }
     public float TimeLeft { get; private set; }
@@ -18,6 +20,7 @@ public class ShipResources : MonoBehaviour
     public float Population { get; private set; }
     public int Workers { get; private set; }
     public int Fighters { get; private set; }
+    public float JumpPrep { get; private set; }
 
     public int PopulationAvailable => (int)this.Population - this.Workers - this.Fighters;
     public int WorkersAvailable => (int)this.Population - this.Fighters;
@@ -45,6 +48,8 @@ public class ShipResources : MonoBehaviour
             return false;
         }
     }
+    public float TimeLeftToCalculateJump => Mathf.Floor((JumpCost - JumpPrep) / (Workers * WorkerJumpPrepAbility) + 1.0f);
+    public bool Lost => this.Population < 1.0f || this.CurrentPower < 1.0f;
 
     public float CurrentPowerConsumption => this.CurrentWorkerPowerConsumption + this.CurrentFighterPowerConsumption;
 
@@ -176,5 +181,62 @@ public class ShipResources : MonoBehaviour
     public void ResetRisk()
     {
         this.Risk = 1.0f;
+    }
+
+    public void PrepareForJump(int timeStep)
+    {
+        this.JumpPrep += this.Workers * this.WorkerJumpPrepAbility * timeStep;
+    }
+
+    public void ResetJumpPrep()
+    {
+        this.JumpPrep = 0.0f;
+    }
+
+    public void Jump()
+    {
+        this.ResetJumpPrep();
+        this.ResetRisk();
+
+        // TODO: Actually go somewhere else?
+    }
+
+    public float Battle(float enemies, int timeStep)
+    {
+        var ourCasualtyRate = enemies / this.Fighters;
+        var theirCasualtyRate = this.Fighters / enemies;
+
+        TakeCasualties(ourCasualtyRate * timeStep);
+        PrepareForJump(timeStep);
+
+        return enemies - theirCasualtyRate;
+    }
+
+    private void TakeCasualties(float ourCasualtyRate)
+    {
+        var casualtiesLeft = ourCasualtyRate;
+        while (casualtiesLeft >= 1.0f)
+        {
+            if (this.Fighters >= 1.0f)
+            {
+                this.Fighters -= 1;
+                this.Population -= 1.0f;
+            }
+            else if (this.Workers >= 1.0f)
+            {
+                this.Workers -= 1;
+                this.Population -= 1.0f;
+            }
+            else if (this.Population >= 1.0f)
+            {
+                this.Population -= 1.0f;
+            }
+            else
+            {
+                return;
+            }
+
+            casualtiesLeft -= 1.0f;
+        }
     }
 }

@@ -139,4 +139,9 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
 
         return this.eventResult;
     }
+
+    public bool IsBattle()
+    {
+        return false;
+    }
 }

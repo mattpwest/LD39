@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class ResultsPanel : MonoBehaviour
 {
 
+    public IEvent NextEvent;
+
     public Text Title;
     public Text FlavourText;
 
@@ -72,6 +74,18 @@ public class ResultsPanel : MonoBehaviour
                 Gain2Label.text = _results.Gain2.Name;
                 Gain2Value.text = $"{_results.Gain2.Value}";
             }
+        }
+    }
+
+    public void CloseDialog()
+    {
+        this.gameObject.SetActive(false);
+
+        if (NextEvent != null)
+        {
+            var toShow = NextEvent;
+            NextEvent = null;
+            toShow.ShowDialog();
         }
     }
 }
