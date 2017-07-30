@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.UI.Events;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ShipResources : MonoBehaviour
 {
@@ -213,8 +214,10 @@ public class ShipResources : MonoBehaviour
         this.ResetJumpPrep();
         this.ResetRisk();
 
+        var shipPosition = Random.insideUnitCircle.normalized * 8;
+
         this.transform.SetParent(this.NextSystem.transform);
-        this.transform.position = this.NextSystem.transform.position;
+        this.transform.position = shipPosition;
         var nextSystemPosition = this.NextSystem.transform.position;
         var cameraPosition = new Vector3(nextSystemPosition.x, nextSystemPosition.y, -10);
         Camera.main.transform.position = cameraPosition;
