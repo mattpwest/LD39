@@ -1,7 +1,7 @@
 ﻿using System;
 using Assets.Scripts.UI;
+using Assets.Scripts.UI.Events;
 using UnityEngine;
-using UnityEngine.Assertions.Comparers;
 using UnityEngine.UI;
 
 public class BattleStrategyConfig : MonoBehaviour, IEvent
@@ -58,6 +58,11 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         this.ValuePopulationAvailable.text = $"{this.shipResources.PopulationAvailable}";
         this.ValueFighters.text = $"{this.shipResources.Fighters}";
         this.ValueWorkers.text = $"{this.shipResources.Workers}";
+    }
+
+    public bool HasDialog()
+    {
+        return true;
     }
 
     public void HideDialog()
@@ -177,6 +182,12 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         {
             this.eventResult.Title = "Escape!";
             this.eventResult.FlavourText = "We have jumped away! It should take the terrans some time find us again...";
+            this.eventResult.OptionalNextEvent = new JumpEvent(
+                shipResources,
+                "Epsilon Eridani",
+                "We have arrived in the Epsilon Eridani system. It will take the terrans some time to search all the " +
+                "systems we may have jumped to, which gives us some time to prepare for our next jump..."
+            );
         }
 
         this.eventResult.Cost2.Value = (int) Math.Abs(this.startPower - this.shipResources.CurrentPower);

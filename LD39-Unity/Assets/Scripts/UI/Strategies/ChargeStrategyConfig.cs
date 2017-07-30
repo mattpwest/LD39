@@ -46,6 +46,11 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
 	    this.ValuePowerPercentage.text = $"{Mathf.Round(this.SliderPower.value * 100)}%";
     }
 
+    public bool HasDialog()
+    {
+        return true;
+    }
+
     public void HideDialog()
     {
         this.Dialog.SetActive(false);

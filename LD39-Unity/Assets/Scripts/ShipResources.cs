@@ -195,6 +195,7 @@ public class ShipResources : MonoBehaviour
 
     public void Jump()
     {
+        this.TimeLeft = 48.0f;
         this.ResetJumpPrep();
         this.ResetRisk();
 

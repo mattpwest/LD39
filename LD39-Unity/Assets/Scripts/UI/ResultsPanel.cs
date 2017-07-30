@@ -4,9 +4,6 @@ using UnityEngine.UI;
 
 public class ResultsPanel : MonoBehaviour
 {
-
-    public IEvent NextEvent;
-
     public Text Title;
     public Text FlavourText;
 
@@ -23,6 +20,7 @@ public class ResultsPanel : MonoBehaviour
     public Text Gain2Value;
 
     private EventResult _results;
+    private EventRunner eventRunner;
 
     public EventResult Results
     {
@@ -77,15 +75,26 @@ public class ResultsPanel : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
+    }
+
     public void CloseDialog()
     {
         this.gameObject.SetActive(false);
 
-        if (NextEvent != null)
+        if (Results.OptionalNextEvent != null)
         {
-            var toShow = NextEvent;
-            NextEvent = null;
-            toShow.ShowDialog();
+            if (Results.OptionalNextEvent.HasDialog())
+            {
+                Results.OptionalNextEvent.ShowDialog();
+            }
+            else
+            {
+                this.eventRunner.AddEvents(Results.OptionalNextEvent, 1);
+                this.eventRunner.ExecuteEvents();
+            }
         }
     }
 }

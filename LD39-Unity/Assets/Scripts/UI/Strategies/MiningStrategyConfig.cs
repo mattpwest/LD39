@@ -61,6 +61,11 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
         }
     }
 
+    public bool HasDialog()
+    {
+        return true;
+    }
+
     public void HideDialog()
     {
         this.Dialog.SetActive(false);

@@ -2,6 +2,7 @@
 {
     public interface IEvent
     {
+        bool HasDialog();
         void HideDialog();
         void ShowDialog();
         void ExecuteStep();
@@ -20,6 +21,8 @@
 
         public EventResultItem Gain1 { get; set; }
         public EventResultItem Gain2 { get; set; }
+
+        public IEvent OptionalNextEvent { get; set; }
     }
 
     public class EventResultItem

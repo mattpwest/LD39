@@ -60,6 +60,11 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
         this.ValuePopulation.text = $"{this.SliderPopulation.value}";
     }
 
+    public bool HasDialog()
+    {
+        return true;
+    }
+
     public void HideDialog()
     {
         this.Dialog.SetActive(false);

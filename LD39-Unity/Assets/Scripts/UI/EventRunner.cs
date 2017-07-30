@@ -27,7 +27,10 @@ public class EventRunner : MonoBehaviour
             this.events.Add(theEvent);
         }
 
-        theEvent.HideDialog();
+        if (theEvent.HasDialog())
+        {
+            theEvent.HideDialog();
+        }
 
         this.ExecuteEvents();
     }
@@ -54,6 +57,11 @@ public class EventRunner : MonoBehaviour
 
         events.Clear();
 
+        if (lastEvent == null)
+        {
+            return;
+        }
+
         var eventResult = lastEvent.GetResult(found);
         var dialog = resultsDialog.GetComponent<ResultsPanel>();
         dialog.Results = eventResult;
@@ -63,7 +71,7 @@ public class EventRunner : MonoBehaviour
             var battle = battleDialog.GetComponentInChildren<BattleStrategyConfig>();
             battle.Enemies = this.Enemies;
             this.Enemies = (int) (this.Enemies * this.EnemyGrowthFactor);
-            dialog.NextEvent = battle;
+            eventResult.OptionalNextEvent = battle;
         }
 
         dialog.gameObject.SetActive(true);
