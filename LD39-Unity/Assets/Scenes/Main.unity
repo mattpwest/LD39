@@ -1978,6 +1978,8 @@ MonoBehaviour:
   LowRiskHours: 24
   JumpCost: 30
   WorkerJumpPrepAbility: 0.5
+  NextSystem: {fileID: 1577790670}
+  JumpLimit: 2
 --- !u!96 &1480549833
 TrailRenderer:
   serializedVersion: 2
