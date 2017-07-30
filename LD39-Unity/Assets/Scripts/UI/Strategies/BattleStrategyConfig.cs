@@ -155,7 +155,7 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         this.eventResult.Cost2.Value = 0;
         this.eventResult.Cost3.Value = 0;
 
-        this.startPopulation = this.shipResources.Metal;
+        this.startPopulation = this.shipResources.Population;
         this.startPower = this.shipResources.CurrentPower;
 
         this.eventRunner.AddEvents(this, (int) Math.Ceiling(this.timeCost));

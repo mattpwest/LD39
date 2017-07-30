@@ -5,6 +5,7 @@ public class ResourcesPanel : MonoBehaviour
 {
     public Text ValuePower;
     public Text ValueTime;
+    public Text ValuePopulation;
     public Text ValueMetal;
 
     public GameObject ProductionDialog;
@@ -23,6 +24,7 @@ public class ResourcesPanel : MonoBehaviour
 	void Update ()
 	{
 	    ValuePower.text = $"{Mathf.Round(shipResources.CurrentPower)}";
+	    ValuePopulation.text = $"{Mathf.Round(shipResources.Population)}";
 	    ValueTime.text = $"{Mathf.Round(shipResources.TimeLeft)}";
 	    ValueMetal.text = $"{Mathf.Round(shipResources.Metal)}";
 	}

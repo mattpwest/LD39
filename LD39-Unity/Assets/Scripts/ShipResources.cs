@@ -209,7 +209,7 @@ public class ShipResources : MonoBehaviour
             new LostEscapeEvent().ExecuteStep();
         }
 
-        this.TimeLeft = 48.0f;
+        this.TimeLeft += 48.0f / (JumpCount + 1);
         this.ResetJumpPrep();
         this.ResetRisk();
 
