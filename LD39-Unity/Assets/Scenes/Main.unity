@@ -785,6 +785,7 @@ GameObject:
   - component: {fileID: 259570380}
   - component: {fileID: 259570382}
   - component: {fileID: 259570381}
+  - component: {fileID: 259570383}
   m_Layer: 0
   m_Name: TutorialSystem
   m_TagString: Untagged
@@ -912,6 +913,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &259570383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 259570379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcde34b663c250b4b824da1c4280cb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StarPower: {fileID: 1697499476}
 --- !u!224 &280478622 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224907503732508972, guid: dc767cb333a26f342acfbb74332c0431,
@@ -2055,7 +2068,8 @@ MonoBehaviour:
   LowRiskHours: 24
   JumpCost: 30
   WorkerJumpPrepAbility: 0.5
-  NextSystem: {fileID: 1577790670}
+  CurrentSystem: {fileID: 259570383}
+  NextSystem: {fileID: 1577790673}
   JumpLimit: 2
 --- !u!96 &1480549833
 TrailRenderer:
@@ -2231,6 +2245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1577790671}
   - component: {fileID: 1577790672}
+  - component: {fileID: 1577790673}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -2269,6 +2284,18 @@ MonoBehaviour:
   EnemyGrowthFactor: 2.5
   battleDialog: {fileID: 2079462475}
   resultsDialog: {fileID: 280478622}
+--- !u!114 &1577790673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1577790670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcde34b663c250b4b824da1c4280cb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StarPower: {fileID: 2101431712}
 --- !u!1 &1626063032
 GameObject:
   m_ObjectHideFlags: 0

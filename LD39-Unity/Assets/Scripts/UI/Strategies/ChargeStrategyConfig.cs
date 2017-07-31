@@ -10,7 +10,6 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
     public Slider SliderPower;
     public GameObject Dialog;
 
-    private StarPower starPower;
     private ShipResources shipResources;
     private EventRunner eventRunner;
     private float chargePower;
@@ -33,7 +32,6 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
 
     void Awake()
     {
-        this.starPower = GameObject.FindObjectOfType<StarPower>();
         this.shipResources = GameObject.FindObjectOfType<ShipResources>();
         this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
     }
@@ -63,19 +61,19 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
         this.SliderPower.value = this.SliderPower.maxValue;
 
         this.chargePower = this.SliderPower.value * this.shipResources.MaxPower;
-        this.chargeTime = this.shipResources.ChargeShipTime(starPower, this.chargePower);
+        this.chargeTime = this.shipResources.ChargeShipTime(this.chargePower);
     }
     
     private void SliderPowerChanged(float value)
     {
         this.chargePower = value * this.shipResources.MaxPower;
-        this.chargeTime = this.shipResources.ChargeShipTime(starPower, this.chargePower);
+        this.chargeTime = this.shipResources.ChargeShipTime(this.chargePower);
     }
 
     public void ExecuteStep()
     {
         this.eventResult.Cost1.Value += 1;
-        shipResources.ChargeShip(this.starPower, 1);
+        shipResources.ChargeShip(1);
     }
 
     public void Execute()
