@@ -74,6 +74,6 @@ public class EventRunner : MonoBehaviour
             eventResult.OptionalNextEvent = battle;
         }
 
-        dialog.gameObject.SetActive(true);
+        dialog.ShowDialog();
     }
 }

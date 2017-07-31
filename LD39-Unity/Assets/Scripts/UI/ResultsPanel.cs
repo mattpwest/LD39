@@ -21,6 +21,7 @@ public class ResultsPanel : MonoBehaviour
 
     private EventResult _results;
     private EventRunner eventRunner;
+    private Skins skins;
 
     public EventResult Results
     {
@@ -78,6 +79,13 @@ public class ResultsPanel : MonoBehaviour
     void Start()
     {
         this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
+        this.skins = GameObject.FindObjectOfType<Skins>();
+    }
+
+    void Awake()
+    {
+        this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
+        this.skins = GameObject.FindObjectOfType<Skins>();
     }
 
     public void CloseDialog()
@@ -95,6 +103,17 @@ public class ResultsPanel : MonoBehaviour
                 this.eventRunner.AddEvents(Results.OptionalNextEvent, 1);
                 this.eventRunner.ExecuteEvents();
             }
+        }
+    }
+
+    public void ShowDialog()
+    {
+        this.gameObject.SetActive(true);
+
+        if (skins != null)
+        {
+            skins.Skin(this.gameObject);
+            skins = null;
         }
     }
 }

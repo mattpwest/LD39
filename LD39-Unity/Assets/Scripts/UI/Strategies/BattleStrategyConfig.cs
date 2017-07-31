@@ -1,12 +1,13 @@
 ﻿using System;
 using Assets.Scripts.UI;
 using Assets.Scripts.UI.Events;
+using Assets.Scripts.UI.Strategies;
 using UI.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class BattleStrategyConfig : MonoBehaviour, IEvent
+public class BattleStrategyConfig : AbstractEvent
 {
     public Text ValueEnemies;
     public Text ValuePopulationAvailable;
@@ -20,8 +21,6 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
 
     public Slider SliderFighters;
     public Slider SliderWorkers;
-
-    public GameObject Dialog;
 
     public float Enemies { get; set; }
     public UnityEvent OnBattleStarted { get; }
@@ -40,7 +39,7 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
     }
 
     // Use this for initialization
-	void Start ()
+    protected override void Start ()
     {
         this.SliderFighters.onValueChanged.AddListener(this.ValueFightersChangeCheck);
         this.SliderWorkers.onValueChanged.AddListener(this.ValueWorkersChangeCheck);
@@ -53,9 +52,11 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         };
     }
 
-    void Awake()
+    protected override void Awake()
     {
-	    this.shipResources = GameObject.FindObjectOfType<ShipResources>();
+        base.Awake();
+
+        this.shipResources = GameObject.FindObjectOfType<ShipResources>();
         this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
     }
 
@@ -68,19 +69,19 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         this.ValueWorkers.text = $"{this.shipResources.Workers}";
     }
 
-    public bool HasDialog()
+    public override bool HasDialog()
     {
         return true;
     }
 
-    public void HideDialog()
+    public override void HideDialog()
     {
         this.Dialog.SetActive(false);
     }
 
-    public void ShowDialog()
+    public override void ShowDialog()
     {
-        this.Dialog.SetActive(true);
+        base.ShowDialog();
 
         this.shipResources.ResetFighters();
         this.shipResources.ResetWorkers();
@@ -170,13 +171,13 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         this.eventRunner.AddEvents(this, (int) Math.Ceiling(this.timeCost));
     }
 
-    public void ExecuteStep()
+    public override void ExecuteStep()
     {
         this.eventResult.Cost1.Value += 1;
         this.Enemies = this.shipResources.Battle(Enemies, 1);
     }
 
-    public EventResult GetResult(bool wasAttacked)
+    public override EventResult GetResult(bool wasAttacked)
     {
         if (this.shipResources.Lost)
         {
@@ -207,5 +208,5 @@ public class BattleStrategyConfig : MonoBehaviour, IEvent
         return this.eventResult;
     }
 
-    public bool IsBattle => true;
+    public override bool IsBattle => true;
 }

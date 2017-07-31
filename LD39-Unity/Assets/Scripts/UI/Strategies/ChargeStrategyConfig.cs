@@ -1,14 +1,14 @@
 ﻿using Assets.Scripts.UI;
+using Assets.Scripts.UI.Strategies;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChargeStrategyConfig : MonoBehaviour, IEvent
+public class ChargeStrategyConfig : AbstractEvent
 {
     public Text ValuePowerPercentage;
     public Text ValuePower;
     public Text ValueTime;
     public Slider SliderPower;
-    public GameObject Dialog;
 
     private StarPower starPower;
     private ShipResources shipResources;
@@ -18,8 +18,7 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
     private float startPower;
     private EventResult eventResult;
     
-
-    void Start ()
+    protected override void Start ()
     {
         this.SliderPower.onValueChanged.AddListener(this.SliderPowerChanged);
 
@@ -31,33 +30,35 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
 
     }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         this.starPower = GameObject.FindObjectOfType<StarPower>();
         this.shipResources = GameObject.FindObjectOfType<ShipResources>();
         this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
     }
 	
-	void Update ()
+	private void Update ()
 	{
 	    this.ValueTime.text = float.IsInfinity(this.chargeTime) ? "∞" : $"{Mathf.Round(chargeTime)}";
 	    this.ValuePower.text = $"{Mathf.Round(this.chargePower - this.shipResources.CurrentPower)}";
 	    this.ValuePowerPercentage.text = $"{Mathf.Round(this.SliderPower.value * 100)}%";
     }
 
-    public bool HasDialog()
+    public override bool HasDialog()
     {
         return true;
     }
 
-    public void HideDialog()
+    public override void HideDialog()
     {
         this.Dialog.SetActive(false);
     }
 
-    public void ShowDialog()
+    public override void ShowDialog()
     {
-        this.Dialog.SetActive(true);
+        base.ShowDialog();
 
         this.SliderPower.minValue = this.shipResources.CurrentPowerPercentage;
         this.SliderPower.value = this.SliderPower.maxValue;
@@ -72,7 +73,7 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
         this.chargeTime = this.shipResources.ChargeShipTime(starPower, this.chargePower);
     }
 
-    public void ExecuteStep()
+    public override void ExecuteStep()
     {
         this.eventResult.Cost1.Value += 1;
         shipResources.ChargeShip(this.starPower, 1);
@@ -86,7 +87,7 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
         this.eventRunner.AddEvents(this, (int) this.chargeTime);
     }
 
-    public EventResult GetResult(bool wasAttacked)
+    public override EventResult GetResult(bool wasAttacked)
     {
         if (wasAttacked)
         {
@@ -104,5 +105,5 @@ public class ChargeStrategyConfig : MonoBehaviour, IEvent
         return eventResult;
     }
 
-    public bool IsBattle => false;
+    public override bool IsBattle => false;
 }

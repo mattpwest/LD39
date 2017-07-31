@@ -1,10 +1,11 @@
 ﻿using System;
 using Assets.Scripts.UI;
+using Assets.Scripts.UI.Strategies;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-public class ProductionStrategyConfig : MonoBehaviour, IEvent
+public class ProductionStrategyConfig : AbstractEvent
 {
     public Text ValueAvailable;
     public Text ValueWorkers;
@@ -17,8 +18,6 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
     public Slider SliderPopulation;
     public Slider SliderWorkers;
 
-    public GameObject Dialog;
-
     private ShipResources shipResources;
     private EventRunner eventRunner;
 
@@ -29,7 +28,7 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
     private float startMetal;
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
         this.SliderPopulation.onValueChanged.AddListener(this.ValuePopulationChangeCheck);
         this.SliderWorkers.onValueChanged.AddListener(this.ValueWorkersChangeCheck);
@@ -43,8 +42,10 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
         };
     }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         this.shipResources = GameObject.FindObjectOfType<ShipResources>();
         this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
@@ -60,19 +61,19 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
         this.ValuePopulation.text = $"{this.SliderPopulation.value}";
     }
 
-    public bool HasDialog()
+    public override bool HasDialog()
     {
         return true;
     }
 
-    public void HideDialog()
+    public override void HideDialog()
     {
         this.Dialog.SetActive(false);
     }
 
-    public void ShowDialog()
+    public override void ShowDialog()
     {
-        this.Dialog.SetActive(true);
+        base.ShowDialog();
 
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
         this.SliderPopulation.maxValue = this.shipResources.MaxProducablePopulation;
@@ -80,7 +81,7 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
         this.UpdateCostValues();
     }
 
-    public void ExecuteStep()
+    public override void ExecuteStep()
     {
         this.eventResult.Cost2.Value += 1;
         this.shipResources.ProducePopulation();
@@ -127,7 +128,7 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
         this.ValuePopulationGain.text = $"{populationToProduce}";
     }
 
-    public EventResult GetResult(bool wasAttacked)
+    public override EventResult GetResult(bool wasAttacked)
     {
         if (wasAttacked)
         {
@@ -147,5 +148,5 @@ public class ProductionStrategyConfig : MonoBehaviour, IEvent
         return this.eventResult;
     }
 
-    public bool IsBattle => false;
+    public override bool IsBattle => false;
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using Assets.Scripts.UI;
+using Assets.Scripts.UI.Strategies;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiningStrategyConfig : MonoBehaviour, IEvent
+public class MiningStrategyConfig : AbstractEvent
 {
     public Text ValueAvailable;
     public Text ValueResource;
@@ -14,8 +15,6 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
 
     public Slider SliderResource;
     public Slider SliderWorkers;
-
-    public GameObject Dialog;
 
     private EventRunner eventRunner;
     private ShipResources shipResources;
@@ -28,7 +27,7 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
     private EventResult eventResult;
 
     // Use this for initialization
-	void Start ()
+    protected override void Start ()
     {
         this.SliderResource.onValueChanged.AddListener(this.ValueResourceChangeCheck);
         this.SliderWorkers.onValueChanged.AddListener(this.ValueWorkersChangeCheck);
@@ -41,9 +40,11 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
         };
     }
 
-    void Awake()
+    protected override void Awake()
     {
-	    this.shipResources = GameObject.FindObjectOfType<ShipResources>();
+        base.Awake();
+
+        this.shipResources = GameObject.FindObjectOfType<ShipResources>();
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
         this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
     }
@@ -61,19 +62,20 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
         }
     }
 
-    public bool HasDialog()
+    public override bool HasDialog()
     {
         return true;
     }
 
-    public void HideDialog()
+    public override void HideDialog()
     {
         this.Dialog.SetActive(false);
     }
 
-    public void ShowDialog()
+    public override void ShowDialog()
     {
-        this.Dialog.SetActive(true);
+        base.ShowDialog();
+
         this.shipResources.ResetWorkers();
         this.SliderResource.value = 1.0f;
         this.UpdateCostValues();
@@ -120,13 +122,13 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
         this.eventRunner.AddEvents(this, timeCost);
     }
 
-    public void ExecuteStep()
+    public override void ExecuteStep()
     {
         this.eventResult.Cost2.Value += 1;
         shipResources.MineMetal(this.Planet, 1);
     }
 
-    public EventResult GetResult(bool wasAttacked)
+    public override EventResult GetResult(bool wasAttacked)
     {
         if (wasAttacked)
         {
@@ -145,5 +147,5 @@ public class MiningStrategyConfig : MonoBehaviour, IEvent
         return this.eventResult;
     }
 
-    public bool IsBattle => false;
+    public override bool IsBattle => false;
 }

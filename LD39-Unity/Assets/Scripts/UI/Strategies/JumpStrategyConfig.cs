@@ -1,17 +1,16 @@
 ﻿using Assets.Scripts.UI;
+using Assets.Scripts.UI.Strategies;
 using UI.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JumpStrategyConfig : MonoBehaviour, IEvent
+public class JumpStrategyConfig : AbstractEvent
 {
     public Text ValueWorkers;
     public Text ValueTime;
     public Text ValuePower;
 
     public Slider SliderWorkers;
-
-    public GameObject Dialog;
 
     private EventResult eventResult;
     private ShipResources shipResources;
@@ -20,7 +19,7 @@ public class JumpStrategyConfig : MonoBehaviour, IEvent
     private EventRunner eventRunner;
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
         this.SliderWorkers.onValueChanged.AddListener(this.SliderWorkersChanged);
 
@@ -31,8 +30,10 @@ public class JumpStrategyConfig : MonoBehaviour, IEvent
                            };
     }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         this.shipResources = GameObject.FindObjectOfType<ShipResources>();
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
         this.eventRunner = GameObject.FindObjectOfType<EventRunner>();
@@ -67,19 +68,19 @@ public class JumpStrategyConfig : MonoBehaviour, IEvent
         this.ValuePower.text = $"{Mathf.Round(powerCost)}";
     }
 
-    public bool HasDialog()
+    public override bool HasDialog()
     {
         return true;
     }
 
-    public void HideDialog()
+    public override void HideDialog()
     {
         this.Dialog.SetActive(false);
     }
 
-    public void ShowDialog()
+    public override void ShowDialog()
     {
-        this.Dialog.SetActive(true);
+        base.ShowDialog();
 
         this.SliderWorkers.maxValue = this.shipResources.WorkersAvailable;
         this.shipResources.ResetWorkers();
@@ -95,13 +96,13 @@ public class JumpStrategyConfig : MonoBehaviour, IEvent
         this.eventRunner.AddEvents(this, this.timeCost);
     }
 
-    public void ExecuteStep()
+    public override void ExecuteStep()
     {
         this.eventResult.Cost1.Value += 1;
         this.shipResources.PrepareForJump(1);
     }
 
-    public EventResult GetResult(bool wasAttacked)
+    public override EventResult GetResult(bool wasAttacked)
     {
         if(wasAttacked)
         {
@@ -126,5 +127,5 @@ public class JumpStrategyConfig : MonoBehaviour, IEvent
         return this.eventResult;
     }
 
-    public bool IsBattle => false;
+    public override bool IsBattle => false;
 }
