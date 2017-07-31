@@ -2090,8 +2090,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1106671895
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7a18b46d3a243414f9772c9f18db7032, type: 3}
   m_Color: {r: 0.28627452, g: 0.49803922, b: 1, a: 1}
@@ -2284,7 +2284,7 @@ TrailRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 1
+    alignment: 0
     textureMode: 0
     generateLightingData: 0
   m_MinVertexDistance: 0.1
