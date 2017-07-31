@@ -15,7 +15,8 @@ public class ShipResources : MonoBehaviour
     public float LowRiskHours = 24.0f;
     public float JumpCost = 30.0f;
     public float WorkerJumpPrepAbility = 0.5f;
-    public GameObject NextSystem;
+    public StarSystem CurrentSystem;
+    public StarSystem NextSystem;
     public int JumpLimit = 2;
 
     public float CurrentPower { get; private set; }
@@ -71,8 +72,9 @@ public class ShipResources : MonoBehaviour
         this.Population = 100;
     }
 
-    public void ChargeShip(StarPower star, int timeCharging)
+    public void ChargeShip(int timeCharging)
     {
+        var star = this.CurrentSystem.StarPower;
         var distanceVector = (Vector2)this.transform.position - star.Position;
         var distance = distanceVector.magnitude;
 
@@ -90,13 +92,15 @@ public class ShipResources : MonoBehaviour
         this.TimePassed(timeCharging);
     }
 
-    public float ChargeShipTime(StarPower star, float targetPower)
+    public float ChargeShipTime(float targetPower)
     {
         var deltaPower = targetPower - this.CurrentPower;
         if (deltaPower < 0)
         {
             return 0.0f;
         }
+
+        var star = this.CurrentSystem.StarPower;
 
         var distanceVector = (Vector2)this.transform.position - star.Position;
         var distance = distanceVector.magnitude;
@@ -221,6 +225,9 @@ public class ShipResources : MonoBehaviour
         var nextSystemPosition = this.NextSystem.transform.position;
         var cameraPosition = new Vector3(nextSystemPosition.x, nextSystemPosition.y, -10);
         Camera.main.transform.position = cameraPosition;
+
+        this.CurrentSystem = this.NextSystem;
+        this.NextSystem = null;
     }
 
     public float Battle(float enemies, int timeStep)
