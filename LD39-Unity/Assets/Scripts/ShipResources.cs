@@ -212,6 +212,7 @@ public class ShipResources : MonoBehaviour
         if (JumpCount >= JumpLimit)
         {
             new LostEscapeEvent().ExecuteStep();
+            return;
         }
 
         this.TimeLeft += 48.0f / (JumpCount + 1);
